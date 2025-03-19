@@ -8,7 +8,7 @@ Doxygen XML to Markdown (or JSON) converter. Generate beautiful C++ documentatio
 
 ![Screenshot - Hugo Learn](screenshots/screenshot_hugo_learn.jpg)
 
-_[Screenshot taken from here](https://matusnovak.github.io/doxybook2/hugo-learn/classes/classengine_1_1audio_1_1audiobuffer/)_
+_[Screenshot taken from here](https://antonz0.github.io/doxybook2/hugo-learn/classes/classengine_1_1audio_1_1audiobuffer/)_
 
 # Table of contents
 
@@ -20,7 +20,7 @@ _[Screenshot taken from here](https://matusnovak.github.io/doxybook2/hugo-learn/
     - [MkDocs with Material theme (Link)](#mkdocs-with-material-theme-link)
     - [MkDocs with Bootswatch theme (Link )](#mkdocs-with-bootswatch-theme-link-)
     - [VuePress with default theme (Link )](#vuepress-with-default-theme-link-)
-    - [GitBook with default theme (Link)](#gitbook-with-default-theme-link)
+    - [Honkit (was: GitBook legacy) with default theme (Link)](#honkit-was-gitbook-legacy-with-default-theme-link)
     - [Docsify with default theme (no link)](#docsify-with-default-theme-no-link)
   - [Examples](#examples)
     - [Creating examples locally](#creating-examples-locally)
@@ -61,29 +61,29 @@ This project is not perfect and I will never claim it will be. It does its job a
 <summary>More screenshots</summary>
 <br>
 
-### [Hugo](https://gohugo.io/) with [Book](https://themes.gohugo.io/hugo-book/) theme ([Link](https://matusnovak.github.io/doxybook2/hugo-book/classes/classengine_1_1audio_1_1audiobuffer/))
+### [Hugo](https://gohugo.io/) with [Book](https://themes.gohugo.io/hugo-book/) theme ([Link](https://antonz0.github.io/doxybook2/hugo-book/classes/classengine_1_1audio_1_1audiobuffer/))
 
 ![Screenshot - Hugo Book](screenshots/screenshot_hugo_book.jpg)
 
-### [MkDocs](https://www.mkdocs.org/) with [ReadTheDocs](https://mkdocs.readthedocs.io/en/stable/) theme ([Link](https://matusnovak.github.io/doxybook2/mkdocs-readthedocs/Classes/classEngine_1_1Audio_1_1AudioBuffer/))
+### [MkDocs](https://www.mkdocs.org/) with [ReadTheDocs](https://mkdocs.readthedocs.io/en/stable/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-readthedocs/Classes/classEngine_1_1Audio_1_1AudioBuffer/))
 
 ![Screenshot - MkDocs ReadTheDocs](screenshots/screenshot_mkdocs_readthedocs.jpg)
 
-### [MkDocs](https://www.mkdocs.org/) with [Material](https://squidfunk.github.io/mkdocs-material/) theme ([Link](https://matusnovak.github.io/doxybook2/mkdocs-material/Classes/classEngine_1_1Audio_1_1AudioBuffer/))
+### [MkDocs](https://www.mkdocs.org/) with [Material](https://squidfunk.github.io/mkdocs-material/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-material/Classes/classEngine_1_1Audio_1_1AudioBuffer/))
 
 ![Screenshot - MkDocs Material](screenshots/screenshot_mkdocs_material.jpg)
 
-### [MkDocs](https://www.mkdocs.org/) with [Bootswatch](http://mkdocs.github.io/mkdocs-bootswatch/) theme ([Link](https://matusnovak.github.io/doxybook2/mkdocs-bootswatch/Classes/classEngine_1_1Audio_1_1AudioBuffer/) )
+### [MkDocs](https://www.mkdocs.org/) with [Bootswatch](http://mkdocs.github.io/mkdocs-bootswatch/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-bootswatch/Classes/classEngine_1_1Audio_1_1AudioBuffer/) )
 
 ![Screenshot - MkDocs Bootswatch](screenshots/screenshot_mkdocs_bootswatch.jpg)
 
-### [VuePress](https://vuepress.vuejs.org/) with default theme ([Link](https://matusnovak.github.io/doxybook2/vuepress/Classes/classEngine_1_1Audio_1_1AudioBuffer.html) )
+### [VuePress](https://vuepress.vuejs.org/) with default theme ([Link](https://antonz0.github.io/doxybook2/vuepress/Classes/classEngine_1_1Audio_1_1AudioBuffer.html) )
 
 ![Screenshot - VuePress](screenshots/screenshot_vuepress_default.jpg)
 
-### [GitBook](https://github.com/GitbookIO/gitbook) with default theme ([Link](https://matusnovak.github.io/doxybook2/original/classEngine_1_1Audio_1_1AudioBuffer.html))
+### [Honkit](https://github.com/honkit/honkit) (was: [GitBook legacy](https://github.com/GitbookIO/gitbook/tree/legacy)) with default theme ([Link](https://antonz0.github.io/honkit/original/classEngine_1_1Audio_1_1AudioBuffer.html))
 
-![Screenshot - GitBook](screenshots/screenshot_gitbook_default.jpg)
+![Screenshot - Honkit](screenshots/screenshot_gitbook_default.jpg)
 
 ### [Docsify](https://docsify.js.org/#/) with default theme (no link)
 
@@ -92,17 +92,17 @@ This project is not perfect and I will never claim it will be. It does its job a
 
 ## Examples
 
-| Demo                                                                                                           | Generator                                       | Theme                                                    | Config                                                        |
-| -------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------- |
-| [Link](https://matusnovak.github.io/doxybook2/hugo-learn/classes/classengine_1_1audio_1_1audiobuffer/)         | [Hugo](https://gohugo.io/)                      | [Learn](https://themes.gohugo.io/hugo-theme-learn/)      | [.doxybook](tree/master/example/hugo-learn/.doxybook)         |
-| [Link](https://matusnovak.github.io/doxybook2/hugo-book/classes/classengine_1_1audio_1_1audiobuffer/)          | [Hugo](https://gohugo.io/)                      | [Book](https://themes.gohugo.io/hugo-book/)              | [.doxybook](tree/master/example/hugo-book/.doxybook)          |
-| [Link](https://matusnovak.github.io/doxybook2/mkdocs-readthedocs/Classes/classEngine_1_1Audio_1_1AudioBuffer/) | [MkDocs](https://www.mkdocs.org/)               | [ReadTheDocs](https://mkdocs.readthedocs.io/en/stable/)  | [.doxybook](tree/master/example/mkdocs-readthedocs/.doxybook) |
-| [Link](https://matusnovak.github.io/doxybook2/mkdocs-material/Classes/classEngine_1_1Audio_1_1AudioBuffer/)    | [MkDocs](https://www.mkdocs.org/)               | [Material](https://squidfunk.github.io/mkdocs-material/) | [.doxybook](tree/master/example/mkdocs-material/.doxybook)    |
-| [Link](https://matusnovak.github.io/doxybook2/mkdocs-bootswatch/Classes/classEngine_1_1Audio_1_1AudioBuffer/)  | [MkDocs](https://www.mkdocs.org/)               | [Bootswatch](http://mkdocs.github.io/mkdocs-bootswatch/) | [.doxybook](tree/master/example/mkdocs-bootswatch/.doxybook)  |
-| [Link](https://matusnovak.github.io/doxybook2/vuepress/Classes/classEngine_1_1Audio_1_1AudioBuffer.html)       | [VuePress](https://vuepress.vuejs.org/)         | Default                                                  | [.doxybook](tree/master/example/vuepress/.doxybook)           |
-| [Link](https://matusnovak.github.io/doxybook2/gitbook/Classes/classEngine_1_1Audio_1_1AudioBuffer.html)        | [GitBook](https://github.com/GitbookIO/gitbook) | Default                                                  | [.doxybook](tree/master/example/vuepress/.doxybook)           |
-| N/A                                                                                                            | [Docsify](https://docsify.js.org/#/)            | Default                                                  | [.doxybook](tree/master/example/docsify/.doxybook)            |
-| [Link](https://matusnovak.github.io/doxybook2/original/classEngine_1_1Audio_1_1AudioBuffer.html)               | Original Doxygen                                | N/A                                                      | N/A                                                           |
+| Demo                                                                                                        | Generator                                  | Theme                                                    | Config                                                        |
+| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------- |
+| [Link](https://antonz0.github.io/doxybook2/hugo-learn/classes/classengine_1_1audio_1_1audiobuffer/)         | [Hugo](https://gohugo.io/)                 | [Learn](https://themes.gohugo.io/hugo-theme-learn/)      | [.doxybook](tree/master/example/hugo-learn/.doxybook)         |
+| [Link](https://antonz0.github.io/doxybook2/hugo-book/classes/classengine_1_1audio_1_1audiobuffer/)          | [Hugo](https://gohugo.io/)                 | [Book](https://themes.gohugo.io/hugo-book/)              | [.doxybook](tree/master/example/hugo-book/.doxybook)          |
+| [Link](https://antonz0.github.io/doxybook2/mkdocs-readthedocs/Classes/classEngine_1_1Audio_1_1AudioBuffer/) | [MkDocs](https://www.mkdocs.org/)          | [ReadTheDocs](https://mkdocs.readthedocs.io/en/stable/)  | [.doxybook](tree/master/example/mkdocs-readthedocs/.doxybook) |
+| [Link](https://antonz0.github.io/doxybook2/mkdocs-material/Classes/classEngine_1_1Audio_1_1AudioBuffer/)    | [MkDocs](https://www.mkdocs.org/)          | [Material](https://squidfunk.github.io/mkdocs-material/) | [.doxybook](tree/master/example/mkdocs-material/.doxybook)    |
+| [Link](https://antonz0.github.io/doxybook2/mkdocs-bootswatch/Classes/classEngine_1_1Audio_1_1AudioBuffer/)  | [MkDocs](https://www.mkdocs.org/)          | [Bootswatch](http://mkdocs.github.io/mkdocs-bootswatch/) | [.doxybook](tree/master/example/mkdocs-bootswatch/.doxybook)  |
+| [Link](https://antonz0.github.io/doxybook2/vuepress/Classes/classEngine_1_1Audio_1_1AudioBuffer.html)       | [VuePress](https://vuepress.vuejs.org/)    | Default                                                  | [.doxybook](tree/master/example/vuepress/.doxybook)           |
+| [Link](https://antonz0.github.io/doxybook2/gitbook/Classes/classEngine_1_1Audio_1_1AudioBuffer.html)        | [Honkit](https://github.com/honkit/honkit) | Default                                                  | [.doxybook](tree/master/example/honkit/.doxybook)             |
+| N/A                                                                                                         | [Docsify](https://docsify.js.org/#/)       | Default                                                  | [.doxybook](tree/master/example/docsify/.doxybook)            |
+| [Link](https://antonz0.github.io/doxybook2/original/classEngine_1_1Audio_1_1AudioBuffer.html)               | Original Doxygen                           | N/A                                                      | N/A                                                           |
 
 Source markdown files for these examples above: <tree/gh-pages>
 
@@ -274,7 +274,7 @@ doxybook2 --input ... --output ... --json
 
 ## Config
 
-All of the GitBook, MkDocs, VuePress, Hugo, Docsify static site generators are slightly different. For example, GitBook resolves markdown links at compile time and they have to end with `.md`, however MkDocs requires the links to end with a forward slash `/`. Using the config you can override this behavior. Only the properties you specify in this JSON file will be overwritten in the application. The properties you do not specify in this config will use the default value instead.
+All of the GitBook, MkDocs, VuePress, Hugo, Docsify static site generators are slightly different. For example, GitBook/Honkit resolves Markdown links at compile time, and they have to end with `.md`, However, MkDocs requires the links to end with a forward slash `/`. Using the config you can override this behavior. Only the properties you specify in this JSON file will be overwritten in the application. The properties you do not specify in this config will use the default value instead.
 
 ### Generate default config
 
@@ -304,7 +304,7 @@ Sample config files are provided in the examples' folder for each generator and 
 * MkDocs + Material theme - `example/mkdocs-material/.doxybook/config.json`
 * MkDocs + Bootswatch theme - `example/mkdocs-bootswatch/.doxybook/config.json`
 * VuePress + default theme - `example/vuepress/.doxybook/config.json`
-* GitBook + default theme - `example/gitbook/.doxybook/config.json`
+* Honkit + default theme - `example/honkit/.doxybook/config.json`
 * Docsify + default theme - `example/docsify/.doxybook/config.json`
 
 **NOTE:** The configuration JSON files for MkDocs have a base URL set, for example `"baseUrl": "/doxybook2/mkdocs-bootswatch/"`. This is needed for publishing documentation from this repository to `gh-pages`. If you want to run the MkDocs examples locally, make sure you change the `baseUrl` to `/` as `"baseUrl": "/"`! If you don't change that, you will get 404. Otherwise, start a HTTP server with a `/doxybook2/mkdocs-bootswatch` prefix.
@@ -403,7 +403,7 @@ These properties modify how Latex formulas should be generated.
 Mkdocs can properly display these formulas for you. Read the [mathjax documentation for mkdocs](https://squidfunk.github.io/mkdocs-material/reference/mathjax/)
 to understand how to enable it. An example of this has been provided in the `doxybook2/examples/src/Engine.hpp`
 file at the bottom. It can be viewed online in the
-[mkdocs-readthedocs demo](https://matusnovak.github.io/doxybook2/mkdocs-readthedocs/)
+[mkdocs-readthedocs demo](https://antonz0.github.io/doxybook2/mkdocs-readthedocs/)
 (Section "Inline formula" and "Block formula").
 
 Double check you config for properties of `formulaInlineStart/End` and `formulaBlockStart/End`.
