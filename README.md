@@ -1,10 +1,10 @@
 # Doxybook2
 
-[![build](https://github.com/Antonz0/doxybook2/actions/workflows/build.yml/badge.svg?branch=develop)](actions) [![downloads](https://img.shields.io/github/downloads/Antonz0/doxybook2/total)](releases) [![release](https://img.shields.io/github/v/release/Antonz0/doxybook2)](releases)
+[![build](https://github.com/Antonz0/doxybook2/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/Antonz0/doxybook2/actions) [![downloads](https://img.shields.io/github/downloads/Antonz0/doxybook2/total)](https://github.com/Antonz0/doxybook2/releases) [![release](https://img.shields.io/github/v/release/Antonz0/doxybook2)](https://github.com/Antonz0/doxybook2/releases/latest)
 
-Doxygen XML to Markdown (or JSON) converter. Generate beautiful C++ documentation by converting Doxygen XML output into markdown pages via [MkDocs](https://www.mkdocs.org/), [Hugo](https://gohugo.io/), [VuePress](https://vuepress.vuejs.org/), [Honkit](https://github.com/honkit/honkit) (a [GitBook](https://github.com/GitbookIO/gitbook) Fork), [Docsify](https://docsify.js.org/#/), or your custom generator. Also comes with an optional templating mechanism and extensive configuration file.
+Doxygen XML to Markdown (or JSON) converter. Generate beautiful C++ documentation by converting Doxygen XML output into markdown pages via [MkDocs](https://www.mkdocs.org), [Hugo](https://gohugo.io), [VuePress](https://vuepress.vuejs.org), [Honkit](https://honkit.netlify.app) (a [GitBook legacy](https://github.com/GitbookIO/gitbook/tree/legacy) fork), [Docsify](https://docsify.js.org), or your custom generator. Also comes with an optional templating mechanism and extensive configuration file.
 
-**Note**: support for a legacy [GitBook](https://github.com/GitbookIO/gitbook) was dropped and replaced with a [Honkit](https://github.com/honkit/honkit) clone now, and currently project doesn't provide a separate example for it. There are plans to restore it later, when modern GitBook will be publicly releases.
+**Note**: support for a [GitBook legacy](https://github.com/GitbookIO/gitbook/tree/legacy) was dropped and replaced with a [Honkit](https://honkit.netlify.app) now, but currently project doesn't provide a separate example for it. There are plans to restore it later, when the modern [GitBook](https://github.com/GitbookIO/gitbook) will be publicly released.
 
 ![Screenshot - Hugo Learn](screenshots/screenshot_hugo_learn.jpg)
 
@@ -26,7 +26,11 @@ _[Screenshot taken from here](https://antonz0.github.io/doxybook2/hugo-learn/cla
     - [Creating examples locally](#creating-examples-locally)
   - [Requirements](#requirements)
   - [Install](#install)
-  - [Install from source](#install-from-source)
+  - [Build from source](#build-from-source)
+    - [Windows (32-bit)](#windows-32-bit)
+    - [Windows (64-bit)](#windows-64-bit)
+    - [Linux](#linux)
+    - [macOS](#macos)
   - [Usage](#usage)
     - [Hello World](#hello-world)
     - [Command line arguments](#command-line-arguments)
@@ -45,6 +49,9 @@ _[Screenshot taken from here](https://antonz0.github.io/doxybook2/hugo-learn/cla
     - [Changes to templates since 1.1.0](#changes-to-templates-since-110)
     - [Debugging templates](#debugging-templates)
   - [Use as a library](#use-as-a-library)
+    - [Manual integration](#manual-integration)
+    - [CMake integration](#cmake-integration)
+    - [Example usage](#example-usage)
   - [Contributing](#contributing)
   - [Issues](#issues)
   - [Known Problems](#known-problems)
@@ -59,52 +66,52 @@ This project is not perfect and I will never claim it will be. It does its job a
 
 <details>
 <summary>More screenshots</summary>
-<br>
+<br/>
 
-### [Hugo](https://gohugo.io/) with [Book](https://themes.gohugo.io/hugo-book/) theme ([Link](https://antonz0.github.io/doxybook2/hugo-book/classes/classengine_1_1audio_1_1audiobuffer/))
+### [Hugo](https://gohugo.io) with [Book](https://themes.gohugo.io/hugo-book/) theme ([Link](https://antonz0.github.io/doxybook2/hugo-book/classes/classengine_1_1audio_1_1audiobuffer/))
 
 ![Screenshot - Hugo Book](screenshots/screenshot_hugo_book.jpg)
 
-### [MkDocs](https://www.mkdocs.org/) with [ReadTheDocs](https://mkdocs.readthedocs.io/en/stable/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-readthedocs/Classes/classEngine_1_1Audio_1_1AudioBuffer/))
+### [MkDocs](https://www.mkdocs.org) with [ReadTheDocs](https://mkdocs.readthedocs.io/en/stable/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-readthedocs/Classes/classEngine_1_1Audio_1_1AudioBuffer/))
 
 ![Screenshot - MkDocs ReadTheDocs](screenshots/screenshot_mkdocs_readthedocs.jpg)
 
-### [MkDocs](https://www.mkdocs.org/) with [Material](https://squidfunk.github.io/mkdocs-material/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-material/Classes/classEngine_1_1Audio_1_1AudioBuffer/))
+### [MkDocs](https://www.mkdocs.org) with [Material](https://squidfunk.github.io/mkdocs-material/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-material/Classes/classEngine_1_1Audio_1_1AudioBuffer/))
 
 ![Screenshot - MkDocs Material](screenshots/screenshot_mkdocs_material.jpg)
 
-### [MkDocs](https://www.mkdocs.org/) with [Bootswatch](http://mkdocs.github.io/mkdocs-bootswatch/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-bootswatch/Classes/classEngine_1_1Audio_1_1AudioBuffer/) )
+### [MkDocs](https://www.mkdocs.org) with [Bootswatch](http://mkdocs.github.io/mkdocs-bootswatch/) theme ([Link](https://antonz0.github.io/doxybook2/mkdocs-bootswatch/Classes/classEngine_1_1Audio_1_1AudioBuffer/) )
 
 ![Screenshot - MkDocs Bootswatch](screenshots/screenshot_mkdocs_bootswatch.jpg)
 
-### [VuePress](https://vuepress.vuejs.org/) with default theme ([Link](https://antonz0.github.io/doxybook2/vuepress/Classes/classEngine_1_1Audio_1_1AudioBuffer.html) )
+### [VuePress](https://vuepress.vuejs.org) with default theme ([Link](https://antonz0.github.io/doxybook2/vuepress/Classes/classEngine_1_1Audio_1_1AudioBuffer.html) )
 
 ![Screenshot - VuePress](screenshots/screenshot_vuepress_default.jpg)
 
-### [Honkit](https://github.com/honkit/honkit) (was: [GitBook legacy](https://github.com/GitbookIO/gitbook/tree/legacy)) with default theme ([Link](https://antonz0.github.io/honkit/original/classEngine_1_1Audio_1_1AudioBuffer.html))
+### [Honkit](https://honkit.netlify.app) (was: [GitBook legacy](https://github.com/GitbookIO/gitbook/tree/legacy)) with default theme ([Link](https://antonz0.github.io/honkit/original/classEngine_1_1Audio_1_1AudioBuffer.html))
 
 ![Screenshot - Honkit](screenshots/screenshot_gitbook_default.jpg)
 
-### [Docsify](https://docsify.js.org/#/) with default theme (no link)
+### [Docsify](https://docsify.js.org) with default theme (no link)
 
 ![Screenshot - Docsify](screenshots/screenshot_docsify_default.jpg)
 </details>
 
 ## Examples
 
-| Demo                                                                                                        | Generator                                  | Theme                                                    | Config                                                        |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------------- |
-| [Link](https://antonz0.github.io/doxybook2/hugo-learn/classes/classengine_1_1audio_1_1audiobuffer/)         | [Hugo](https://gohugo.io/)                 | [Learn](https://themes.gohugo.io/hugo-theme-learn/)      | [.doxybook](tree/master/example/hugo-learn/.doxybook)         |
-| [Link](https://antonz0.github.io/doxybook2/hugo-book/classes/classengine_1_1audio_1_1audiobuffer/)          | [Hugo](https://gohugo.io/)                 | [Book](https://themes.gohugo.io/hugo-book/)              | [.doxybook](tree/master/example/hugo-book/.doxybook)          |
-| [Link](https://antonz0.github.io/doxybook2/mkdocs-readthedocs/Classes/classEngine_1_1Audio_1_1AudioBuffer/) | [MkDocs](https://www.mkdocs.org/)          | [ReadTheDocs](https://mkdocs.readthedocs.io/en/stable/)  | [.doxybook](tree/master/example/mkdocs-readthedocs/.doxybook) |
-| [Link](https://antonz0.github.io/doxybook2/mkdocs-material/Classes/classEngine_1_1Audio_1_1AudioBuffer/)    | [MkDocs](https://www.mkdocs.org/)          | [Material](https://squidfunk.github.io/mkdocs-material/) | [.doxybook](tree/master/example/mkdocs-material/.doxybook)    |
-| [Link](https://antonz0.github.io/doxybook2/mkdocs-bootswatch/Classes/classEngine_1_1Audio_1_1AudioBuffer/)  | [MkDocs](https://www.mkdocs.org/)          | [Bootswatch](http://mkdocs.github.io/mkdocs-bootswatch/) | [.doxybook](tree/master/example/mkdocs-bootswatch/.doxybook)  |
-| [Link](https://antonz0.github.io/doxybook2/vuepress/Classes/classEngine_1_1Audio_1_1AudioBuffer.html)       | [VuePress](https://vuepress.vuejs.org/)    | Default                                                  | [.doxybook](tree/master/example/vuepress/.doxybook)           |
-| [Link](https://antonz0.github.io/doxybook2/gitbook/Classes/classEngine_1_1Audio_1_1AudioBuffer.html)        | [Honkit](https://github.com/honkit/honkit) | Default                                                  | [.doxybook](tree/master/example/honkit/.doxybook)             |
-| N/A                                                                                                         | [Docsify](https://docsify.js.org/#/)       | Default                                                  | [.doxybook](tree/master/example/docsify/.doxybook)            |
-| [Link](https://antonz0.github.io/doxybook2/original/classEngine_1_1Audio_1_1AudioBuffer.html)               | Original Doxygen                           | N/A                                                      | N/A                                                           |
+| Demo                                                                                                        | Generator                                                                                                      | Theme                                                    | Config                                                                                           |
+| ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| [Link](https://antonz0.github.io/doxybook2/hugo-learn/classes/classengine_1_1audio_1_1audiobuffer/)         | [Hugo](https://gohugo.io)                                                                                      | [Learn](https://themes.gohugo.io/hugo-theme-learn/)      | [.doxybook](https://github.com/Antonz0/doxybook2/tree/main/example/hugo-learn/.doxybook)         |
+| [Link](https://antonz0.github.io/doxybook2/hugo-book/classes/classengine_1_1audio_1_1audiobuffer/)          | [Hugo](https://gohugo.io)                                                                                      | [Book](https://themes.gohugo.io/hugo-book/)              | [.doxybook](https://github.com/Antonz0/doxybook2/tree/main/example/hugo-book/.doxybook)          |
+| [Link](https://antonz0.github.io/doxybook2/mkdocs-readthedocs/Classes/classEngine_1_1Audio_1_1AudioBuffer/) | [MkDocs](https://www.mkdocs.org)                                                                               | [ReadTheDocs](https://mkdocs.readthedocs.io/en/stable/)  | [.doxybook](https://github.com/Antonz0/doxybook2/tree/main/example/mkdocs-readthedocs/.doxybook) |
+| [Link](https://antonz0.github.io/doxybook2/mkdocs-material/Classes/classEngine_1_1Audio_1_1AudioBuffer/)    | [MkDocs](https://www.mkdocs.org)                                                                               | [Material](https://squidfunk.github.io/mkdocs-material/) | [.doxybook](https://github.com/Antonz0/doxybook2/tree/main/example/mkdocs-material/.doxybook)    |
+| [Link](https://antonz0.github.io/doxybook2/mkdocs-bootswatch/Classes/classEngine_1_1Audio_1_1AudioBuffer/)  | [MkDocs](https://www.mkdocs.org)                                                                               | [Bootswatch](http://mkdocs.github.io/mkdocs-bootswatch/) | [.doxybook](https://github.com/Antonz0/doxybook2/tree/main/example/mkdocs-bootswatch/.doxybook)  |
+| [Link](https://antonz0.github.io/doxybook2/vuepress/Classes/classEngine_1_1Audio_1_1AudioBuffer.html)       | [VuePress](https://vuepress.vuejs.org)                                                                         | Default                                                  | [.doxybook](https://github.com/Antonz0/doxybook2/tree/main/example/vuepress/.doxybook)           |
+| [Link](https://antonz0.github.io/doxybook2/gitbook/Classes/classEngine_1_1Audio_1_1AudioBuffer.html)        | [Honkit](https://honkit.netlify.app) (was: [GitBook legacy](https://github.com/GitbookIO/gitbook/tree/legacy)) | Default                                                  | [.doxybook](https://github.com/Antonz0/doxybook2/tree/main/example/honkit/.doxybook)             |
+| N/A                                                                                                         | [Docsify](https://docsify.js.org)                                                                              | Default                                                  | [.doxybook](https://github.com/Antonz0/doxybook2/tree/main/example/docsify/.doxybook)            |
+| [Link](https://antonz0.github.io/doxybook2/original/classEngine_1_1Audio_1_1AudioBuffer.html)               | Original Doxygen                                                                                               | N/A                                                      | N/A                                                                                              |
 
-Source markdown files for these examples above: <tree/gh-pages>
+Source markdown files for these examples above: <https://github.com/Antonz0/doxybook2/tree/gh-pages>
 
 ### Creating examples locally
 
@@ -112,34 +119,128 @@ First, compile the doxybook2 and then run `examples.bat` or `examples.sh` in the
 
 ## Requirements
 
-This tool has been compiled and tested on Windows (win32 and win64), Linux (amd64 and arm64), and OSX (amd64). Using any other architecture, such as power PC, is not guaranteed to work. You will also need Doxygen 1.8.16 or newer. Doxygen 1.8.15 is supported but I do not recommend it. Windows arm64 is not tested and not supported at this moment. No extra OS dependencies needed (everything is done via git vcpkg as linked statically), simply download the executable file from the GitHub release page. If using Windows, you will need [Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017 and 2019](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
+This tool has been compiled and tested on Windows (win32 and win64), Linux (amd64 and arm64), and OSX (amd64). Using any other architecture, such as power PC, is not guaranteed to work. You will also need Doxygen 1.8.16 or newer. Windows arm64 is not tested and not supported at this moment. No extra OS dependencies needed (everything is done via git vcpkg as linked statically), simply download the executable file from the GitHub release page. If using Windows, you will need [Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017 and 2019](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version).
 
 ## Install
 
-Go to releases and download the precompiled binary in the zip file for your target platform. The windows release needs [Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017 and 2019](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads). The binary file `doxybook2.exe` is located in the `bin` folder in the zip file, put it somewhere in your system and add it to the OS `PATH` environment variable.
+Go to releases and download the precompiled binary in the zip file for your target platform. The windows release needs [Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017 and 2019](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version). The binary file `doxybook2.exe` is located in the `bin` folder in the zip file, put it somewhere in your system and add it to the OS `PATH` environment variable.
 
-## Install from source
+## Build from source
 
-To install from source, simply clone the repository, install the dependencies listed in the `vcpkg.txt` file, and use CMake + vcpkg toolchain to build it. No extra steps required.
+To install from source, simply clone the repository, install the dependencies listed in the `vcpkg.json` file, and use CMake + vcpkg toolchain to build it. No extra steps required. See ["Install and use packages with CMake"](https://learn.microsoft.com/uk-ua/vcpkg/get_started/get-started) vcpkg tutorial for more details.
 
 **Requirements:**
 
  * [vcpkg](https://github.com/microsoft/vcpkg)
- * C++17 compiler (for example: GCC-9 or Visual Studio 2017)
+ * C++17 compiler (for example: GCC-9 or Visual Studio 2019)
+ * [CMake](https://cmake.org/) 3.21 or later.
+
+### Windows (32-bit)
+
+<details>
+<summary>Example commands</summary>
+
+```batch
+:: Set up path to vcpkg, change according to your vcpkg location.
+set "VCPKG_ROOT=C:\vcpkg"
+set PATH=%VCPKG_ROOT%;%PATH%
+
+:: Clone the project
+git clone https://github.com/Antonz0/doxybook2.git
+cd doxybook2
+
+:: Install dependencies via vcpkg
+vcpkg install --triplet x86-windows
+
+:: Configure the project and use vcpkg toolchain
+:: Depending on your setup you can also try following generators:
+::   "Visual Studio 14 2015"
+::   "Visual Studio 15 2017"
+::   "Visual Studio 16 2019"
+::   "Visual Studio 17 2022"
+::   "Ninja Multi-Config"
+:: Check a JSON file generated by `cmake -E capabilities` for a list of supported generators.
+mkdir build
+
+cmake -B .\build -G "Visual Studio 16 2019" ^
+    -DCMAKE_INSTALL_PREFIX=.\install ^
+    -DCMAKE_BUILD_TYPE=MinSizeRel ^
+    -DDOXYBOOK_TESTS=ON ^
+    -DVCPKG_TARGET_TRIPLET=x86-windows ^
+    -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake ^
+    .
+
+:: Build and Install it
+cmake --build .\build --target install --config MinSizeRel
+
+:: Done!
+.\install\bin\doxybook2 --help
+```
+</details>
+
+### Windows (64-bit)
+
+<details>
+<summary>Example commands</summary>
+
+```batch
+:: Set up path to vcpkg, change according to your vcpkg location.
+set "VCPKG_ROOT=C:\vcpkg"
+set PATH=%VCPKG_ROOT%;%PATH%
+
+:: Clone the project
+git clone https://github.com/Antonz0/doxybook2.git
+cd doxybook2
+
+:: Install dependencies via vcpkg
+vcpkg install --triplet x64-windows
+
+:: Configure the project and use vcpkg toolchain
+:: Depending on your setup you can also try following generators:
+::   "Visual Studio 14 2015"
+::   "Visual Studio 15 2017"
+::   "Visual Studio 16 2019"
+::   "Visual Studio 17 2022"
+::   "Ninja Multi-Config"
+:: Check a JSON file generated by `cmake -E capabilities` for a list of supported generators.
+mkdir build
+
+cmake -B .\build -G "Visual Studio 16 2019" ^
+    -DCMAKE_INSTALL_PREFIX=.\install ^
+    -DCMAKE_BUILD_TYPE=MinSizeRel ^
+    -DDOXYBOOK_TESTS=ON ^
+    -DVCPKG_TARGET_TRIPLET=x64-windows ^
+    -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake ^
+    .
+
+:: Build and Install it
+cmake --build .\build --target install --config MinSizeRel
+
+:: Done!
+.\install\bin\doxybook2 --help
+```
+</details>
+
+### Linux
+
+<details>
+<summary>Example commands</summary>
 
 ```bash
 # Clone the project
 git clone https://github.com/Antonz0/doxybook2.git
 cd doxybook2
 
-# ensure you are using C++17 compiler
-# Linux:
+# Set up path to vcpkg, change according to your vcpkg location.
+export VCPKG_ROOT=/usr/local/share/vcpkg
+export PATH=${VCPKG_ROOT}:$PATH
+
+# Ensure you are using C++17 compiler (for GCC only, optional, may break on some systems).
 export CC=/usr/bin/gcc-9
 epxort CXX=/usr/bin/g++-9
 
 # Install dependencies via vcpkg
-# The 'vcpkg.txt' file contains the list of dependencies to install
-vcpkg install --triplet x64-linux $(cat vcpkg.txt)
+vcpkg install --triplet x64-linux
 
 # Configure the project and use vcpkg toolchain
 mkdir build
@@ -148,7 +249,7 @@ cmake -B ./build -G "Unix Makefiles" \
     -DCMAKE_BUILD_TYPE=MinSizeRel \
     -DDOXYBOOK_TESTS=ON \
     -DVCPKG_TARGET_TRIPLET=x64-linux \
-    -DCMAKE_TOOLCHAIN_FILE=/usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake
+    -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
     .
 
 # Build and Install it
@@ -157,6 +258,42 @@ cmake --build ./build --target install --config MinSizeRel
 # Done!
 ./install/bin/doxybook2 --help
 ```
+</details>
+
+### macOS
+
+<details>
+<summary>Example commands</summary>
+
+```bash
+# Clone the project
+git clone https://github.com/Antonz0/doxybook2.git
+cd doxybook2
+
+# Set up path to vcpkg, change according to your vcpkg location.
+export VCPKG_ROOT=/usr/local/share/vcpkg
+export PATH=${VCPKG_ROOT}:$PATH
+
+# Install dependencies via vcpkg
+vcpkg install --triplet x64-osx
+
+# Configure the project and use vcpkg toolchain
+mkdir build
+cmake -B ./build -G "Unix Makefiles" \
+    -DCMAKE_INSTALL_PREFIX=./install \
+    -DCMAKE_BUILD_TYPE=MinSizeRel \
+    -DDOXYBOOK_TESTS=ON \
+    -DVCPKG_TARGET_TRIPLET=x64-osx \
+    -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake \
+    .
+
+# Build and Install it
+cmake --build ./build --target install --config MinSizeRel
+
+# Done!
+./install/bin/doxybook2 --help
+```
+</details>
 
 ## Usage
 
@@ -165,8 +302,8 @@ You only need Doxygen, doxybook2 from this repository, and some markdown static 
 ### Hello World
 
 1. Document your code so that Doxygen can pick it up.
-2. Make sure your `Doxyfile` contains `GENERATE_XML = YES` and `XML_OUTPUT = xml`. A sample `Doxyfile` is provided in the `example/Doxyfile` folder in this repository.
-3. Run doxygen simply by calling `doxygen` in terminal in the same directory as your `Doxyfile`.
+2. Make sure your `Doxyfile` contains `GENERATE_XML = YES` and `XML_OUTPUT = xml`. A sample `Doxyfile` is provided in the `example` folder in this repository.
+3. Run Doxygen simply by calling `doxygen` in terminal in the same directory as your `Doxyfile`.
 4. Run doxybook2 as the following:
 
 
@@ -174,7 +311,7 @@ You only need Doxygen, doxybook2 from this repository, and some markdown static 
 doxybook2 --input path/to/doxygen/xml --output path/to/destination
 ```
 
-I highly suggest reading through the [Config](#config) or looking into `example/xyz/.doxybook/config.json` files, and then using the config as `--config path/to/config.json`.
+I highly suggest reading through the [Config](#config) or looking into `example/<tool-theme>/.doxybook/config.json` files, and then using the config as `--config path/to/config.json`.
 
 ### Command line arguments
 
@@ -213,7 +350,7 @@ Debug\doxybook2.exe
 
 Note, `--config-data` can be used on top of `--config` to overwrite config properties. Example on Windows terminal (double `""` escapes the double quote):
 
-```cmd
+```batch
 doxybook2 ... --config-data "{""linkSuffix"": """"}"
 ```
 
@@ -225,9 +362,11 @@ doxybook2 ... --config-data '{"linkSuffix": ""}'
 
 ### GitBook/Honkit specific usage
 
-GitBook/Honkit requires that your `SUMMARY.md` file contains all the other markdown files. If the markdown file is not listed in here, it will not be generated into a HTML file. Therefore, using `--summary-input` and `--summary-output` you can generate a `SUMMARY.md` file. This works by creating a "template", let's call it `SUMMARY.md.tmpl`. This template file will not get modified by doxybook2. You will need to put in any links you see fit (external links? other markdown files?), and then you will need to add `{{doxygen}}` (including the double curly brackets) somewhere in this template summary. Note that the indentation of `{{doxygen}}` matters and will affect the output! Example:
+GitBook/Honkit requires that your `SUMMARY.md` file contains all the other markdown files. If the markdown file is not listed in here, it will not be generated into a HTML file. Therefore, using `--summary-input` and `--summary-output` you can generate a `SUMMARY.md` file. This works by creating a "template", let's call it `SUMMARY.md.tmpl`. This template file will not get modified by doxybook2. You will need to put in any links you see fit (external links? other markdown files?), and then you will need to add `{{doxygen}}` (including the double curly brackets) somewhere in this template summary. Note that the indentation of `{{doxygen}}` matters and will affect the output!
 
-```
+Example:
+
+```markdown
 # Doxybook2 Example
 
 * [Introduction](README.md)
@@ -236,8 +375,10 @@ GitBook/Honkit requires that your `SUMMARY.md` file contains all the other markd
 ```
 
 And when running:
+<details>
+<summary>Linux/macOS</summary>
 
-```
+```bash
 doxybook2 \
     --input ... \
     --output ... \
@@ -245,10 +386,23 @@ doxybook2 \
     --summary-input path/to/SUMMARY.md.tmpl \
     --summary-output path/to/SUMMARY.md
 ```
+</details>
+<details>
+<summary>Windows</summary>
+
+```batch
+doxybook2 ^
+    --input ... ^
+    --output ... ^
+    --config ... ^
+    --summary-input path/to/SUMMARY.md.tmpl ^
+    --summary-output path/to/SUMMARY.md
+```
+</details>
 
 The `path/to/SUMMARY.md` will be generated and `{{doxygen}}` will be overwritten with a nested list. It will look like this:
 
-```
+```markdown
 # Doxybook Example
 
 * [Introduction](README.md)
@@ -268,7 +422,7 @@ There is a sample config and summary template file located in the `example/gitbo
 
 You can generate JSON only files (no Markdown) by adding `--json` to the command line (with no value). Such as the following:
 
-```
+```bash
 doxybook2 --input ... --output ... --json
 ```
 
@@ -280,7 +434,7 @@ All of the GitBook, MkDocs, VuePress, Hugo, Docsify static site generators are s
 
 You can create a config file by running:
 
-```
+```bash
 doxybook2 --generate-config /some/path/to/config.json
 ```
 
@@ -290,7 +444,7 @@ This will generate config file with **all** available properties with their **de
 
 Properties not specified in this `config.json` file will be loaded with the default value. You can specify only properties you want to override. Empty config file is also valid. To use the config file when generating markdown files do the following:
 
-```
+```bash
 doxybook2 --input ... --output ... --config /some/path/to/config.json
 ```
 
@@ -319,7 +473,7 @@ The following is a list of config properties, their default value, and descripti
 | `sort`                        | `false`                                                              | Sort everything alphabetically. If set to false, the order will stay the same as the order in the Doxygen XML files.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `imagesFolder`                | `"images"`                                                           | Name of the folder where to copy images. This folder will be automatically created in the output path defined by `--output`. Leave this empty string if you want all of the images to be stored in the root directory (the output directory).                                                                                                                                                                                                                                                                                                               |
 | `linkLowercase`               | `false`                                                              | Convert all Markdown links (only links to other markdown files, the C++ related stuff) into lowercase format. Hugo need this to set to `true`.                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `linkAndInlineCodeAsHTML`     | `false`                                                              | Output links as HTML <a> tags and inline code as <code> tags instead of Markdown. If your generated Markdown has links inside of inline code, set this to `true` to correctly render the links.                                                                                                                                                                                                                                                                                                                                                             |
+| `linkAndInlineCodeAsHTML`     | `false`                                                              | Output links as HTML <a> tags and inline code as `<code>` tags instead of Markdown. If your generated Markdown has links inside of inline code, set this to `true` to correctly render the links.                                                                                                                                                                                                                                                                                                                                                           |
 | `indexInFolders`              | `false`                                                              | Part of the generated markdown output are extra index files. These are more of a list of classes, namespaces, modules, etc. By default these are stored in the root directory (the output directory). Set to true if you want them to be generated in their respective folders (i.e. class index in Classes folder, etc.)                                                                                                                                                                                                                                   |
 | `mainPageInRoot`              | `false`                                                              | If a `mainpage` is defined by Doxygen, then this file will be generated in `Pages/mainpage.md` path. If you want to make it into `index.md` as the root of your website, then set this to true with `mainPageName` set to `"index"`.                                                                                                                                                                                                                                                                                                                        |
 | `mainPageName`                | `"indexpage"`                                                        | If a `mainpage` is defined by Doxygen, then this file will be saved as `indexpage`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -327,8 +481,8 @@ The following is a list of config properties, their default value, and descripti
 | `linkSuffix`                  | `".md"`                                                              | The suffix to put after all of the Markdown links (only links to other markdown files). If using GitBook, leave this to `".md"`, but MkDocs and Hugo needs `"/"` instead.                                                                                                                                                                                                                                                                                                                                                                                   |
 | `fileExt`                     | `"md"`                                                               | The file extension to use when generating markdown files.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `filesFilter`                 | `[]`                                                                 | This will filter which files are allowed to be in the output. For example, an array of `[".hpp", ".h"]` will allow only the files that have file extensions `.hpp` or `.h`. When this is empty (by default) then all files are allowed in the output. This also affects `--json` type of output. This does not filter which classes/functions/etc should be extracted from the source files! (For that, use Doxygen's [FILE_PATTERNS](https://www.doxygen.nl/manual/config.html#cfg_file_patterns)) This only affects listing of those files in the output! |
-| `foldersToGenerate`           | `["modules", "classes", "files", "pages", "namespaces", "examples"]` | List of folders to create. You can use this to skip generation of some folders, for example you don't want `examples` then remove it from the array. Note, this does not change the name of the folders that will be generated, this only enables them. This is an enum and must be lower-case. If you do not set this value in your JSON config file then all of the folders are created. An empty array will not generate anything at all.'                                                                                                               |
-| `replaceUnderscoresInAnchors` | `true`                                                               | Replace '_' with '-' in anchors.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `foldersToGenerate`           | `["modules", "classes", "files", "pages", "namespaces", "examples"]` | List of folders to create. You can use this to skip generation of some folders, for example you don't want `examples` then remove it from the array. Note, this does not change the name of the folders that will be generated, this only enables them. This is an enum and must be lower-case. If you do not set this value in your JSON config file then all the folders are created. An empty array will not generate anything at all.'                                                                                                                  |
+| `replaceUnderscoresInAnchors` | `true`                                                               | Replace `_` with `-` in anchors.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 The following are a list of config properties that specify the names of the folders. Each folder holds specific group of C++ stuff. Note that the `Classes` folder also holds interfaces, structs, and unions.
 
@@ -420,7 +574,7 @@ For example, the following comment block:
 
 Will be generated as the following Markdown:
 
-```md
+```markdown
 The distance between \((x_1,y_1)\) and \((x_2,y_2)\) is
  \(\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}\).
 ```
@@ -433,7 +587,7 @@ This Doxybook2 utility uses templates very similar to Jinja on Python. The templ
 
 You can dump the default templates into a specific folder by calling Doxybook2 as:
 
-```
+```bash
 doxybook2 --generate-templates /path/to/folder
 ```
 
@@ -441,9 +595,9 @@ Note that the folder must exist. If there are any existing files that use the sa
 
 ### Using templates
 
-To use the templates, simply create a folder, put some templates in there **ending with `.tmpl` file extension** and they will be automatically loaded as:
+To use the templates, simply create a folder, put some templates in there **ending with `.tmpl` file extension**, and they will be automatically loaded as:
 
-```
+```bash
 doxybook2 --input ... --output ... --templates /path/to/folder
 ```
 
@@ -516,7 +670,25 @@ Why is this useful and why JSON? The JSON is the container between C++ data and 
 
 ## Use as a library
 
-You can use this tool as a C++ library. There is a pre-compiled binary executable, static library, and header files on GitHub release page. Simply add `libdoxybook.a` into your program and provide an include path to the `include` folder. You can also include the root `CMakeLists.txt` file in this repository and compile it yourself. You will also need to link `nlohmann/json`, `tinyxml2`, and `fmtlib/fmt`. The API documentation will be added in the future, but here is a simple example to get your started:
+You can use this tool as a C++ library. There is a pre-compiled binary executable, static library, and header files on GitHub release page.
+
+### Manual integration
+
+1. Add `libdoxybook.a` (or `doxybook2.lib` for Windows) into your program;
+2. Provide an include path to the `include` folder;
+3. You will also need to link [`nlohmann/json`](https://github.com/nlohmann/json), [`tinyxml2`](https://github.com/leethomason/tinyxml2), and [`fmtlib/fmt`](https://github.com/fmtlib/fmt). Other dependencies are header-only and there is no need to provide libraries files for them.
+
+### CMake integration
+
+1. Simply add root `CMakeLists.txt` file located in this repository and compile it yourself.
+2. Follow rules listed in the ["Build from source"](#build-from-source) chapter for more details.
+
+### Example usage
+
+The API documentation will be added in the future, but here is a simple example to get your started:
+
+<details>
+<summary>Example code</summary>
 
 ```cpp
 #include <nlohmann/json.hpp>
@@ -573,6 +745,8 @@ int main() {
     auto constructorData& = childrenDataMap.at(audioBufferConstructor);
 }
 ```
+</details>
+
 
 ## Contributing
 
