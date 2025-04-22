@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '**'
+      - 'develop'
+      - 'main'
     tags:
-      - '**'
+      - 'v*'
   pull_request:
     branches:
       - 'develop'
-      - 'master'
+      - 'main'
 
 jobs:
   build:
@@ -402,7 +403,7 @@ jobs:
           stat ${{ github.workspace }}/public
 
       - name: Deploy
-        if: startsWith(github.ref, 'refs/heads/master')
+        if: startsWith(github.ref, 'refs/heads/main')
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
