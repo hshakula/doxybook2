@@ -10,10 +10,10 @@ static const std::vector<std::string> ALL_VISIBILITIES = {
 };
 // clang-format on
 
-static const std::string TEMPLATE_META = R"()";
+static const std::string TEMPLATE_META = R"~~~()~~~";
 
 static const std::string TEMPLATE_HEADER =
-    R"(---
+    R"~~~(---
 {% if exists("title") -%}
 title: {{title}}
 {% else if exists("name") -%}
@@ -30,22 +30,22 @@ summary: {{summary}}
 {% else if exists("kind") and kind != "page" -%}
 # {{name}} {{title(kind)}} Reference
 {% endif %}
-)";
+)~~~";
 
-static const std::string TEMPLATE_BREADCRUMBS = R"({% if exists("moduleBreadcrumbs") -%}
+static const std::string TEMPLATE_BREADCRUMBS = R"~~~({% if exists("moduleBreadcrumbs") -%}
 **Module:** {%- for module in moduleBreadcrumbs -%}
  **[{{module.title}}]({{module.url}})**{% if not loop.is_last %} **/** {% endif -%}
 {% endfor %}
 
-{% endif -%})";
+{% endif -%})~~~";
 
 static const std::string TEMPLATE_FOOTER =
-    R"(-------------------------------
+    R"~~~(-------------------------------
 
-Updated on {{date("%F at %H:%M:%S %z")}})";
+Updated on {{date("%F at %H:%M:%S %z")}})~~~";
 
 static const std::string TEMPLATE_DETAILS =
-    R"({% if exists("brief") %}{{brief}}
+    R"~~~({% if exists("brief") %}{{brief}}
 {% endif -%}
 
 {% if exists("paramList") %}
@@ -233,7 +233,7 @@ static const std::string TEMPLATE_DETAILS =
 {% if exists("inbody") %}
 {{inbody}}
 
-{% endif -%})";
+{% endif -%})~~~";
 
 static std::string createTableIfInherited(const std::string& visibility,
     const std::string& title,
@@ -267,7 +267,7 @@ static std::string createTableForNamespaceLike(const std::string& visibility,
     ss << "{% for child in " << (inherited ? "base." : "") << key << " -%}\n";
 
     ss << "| **[{{child.name}}]({{child.url}})** ";
-    ss << "{% if existsIn(child, \"brief\") %}<br>{{child.brief}}{% endif %} |\n";
+    ss << "{% if existsIn(child, \"brief\") %}<br/>{{child.brief}}{% endif %} |\n";
 
     ss << "{% endfor %}\n{% endif -%}\n";
 
@@ -290,7 +290,7 @@ static std::string createTableForClassLike(const std::string& visibility,
 
     ss << "| {{child.kind}} | ";
     ss << "**[{{child.name}}]({{child.url}})** ";
-    ss << "{% if existsIn(child, \"brief\") %}<br>{{child.brief}}{% endif %} |\n";
+    ss << "{% if existsIn(child, \"brief\") %}<br/>{{child.brief}}{% endif %} |\n";
 
     ss << "{% endfor %}\n{% endif -%}\n";
 
@@ -313,7 +313,7 @@ static std::string createTableForClassStripLike(const std::string& visibility,
 
     ss << "| {{child.kind}} | ";
     ss << "**[{{last(stripNamespace(child.name))}}]({{child.url}})** ";
-    ss << "{% if existsIn(child, \"brief\") %}<br>{{child.brief}}{% endif %} |\n";
+    ss << "{% if existsIn(child, \"brief\") %}<br/>{{child.brief}}{% endif %} |\n";
 
     ss << "{% endfor %}\n{% endif -%}\n";
 
@@ -340,7 +340,7 @@ static std::string createTableForTypeLike(const std::string& visibility,
     ss << "{{param.typePlain}} {{param.name}}";
     ss << "{% if existsIn(param, \"defvalPlain\") %} ={{param.defvalPlain}}{% endif -%}\n";
     ss << "{% if not loop.is_last %},{% endif -%}\n";
-    ss << "{% endfor %}\\> <br>{% endif -%}\n";
+    ss << "{% endfor %}\\> <br/>{% endif -%}\n";
 
     ss << "{{child.kind}}{% if child.kind == \"enum\" and child.strong %} class{% endif %}";
     ss << "{% if existsIn(child, \"type\") %} {{child.type}} {% endif -%}";
@@ -352,7 +352,7 @@ static std::string createTableForTypeLike(const std::string& visibility,
     ss << "{% if existsIn(enumvalue, \"initializer\") %} {{enumvalue.initializer}}{% endif -%}\n";
     ss << "{% if not loop.is_last %}, {% endif %}{% endfor -%}\n }";
     ss << "{% endif -%}\n";
-    ss << "{% if existsIn(child, \"brief\") %}<br>{{child.brief}}{% endif %} |\n";
+    ss << "{% if existsIn(child, \"brief\") %}<br/>{{child.brief}}{% endif %} |\n";
 
     ss << "{% endfor %}\n{% endif -%}\n";
 
@@ -374,7 +374,7 @@ static std::string createTableForAttributeLike(const std::string& visibility,
     ss << "{% for child in " << (inherited ? "base." : "") << key << " -%}\n";
     ss << "| {% if existsIn(child, \"type\") %}{{child.type}} {% endif -%}\n";
     ss << "| **[{{child.name}}]({{child.url}})**";
-    ss << " {% if existsIn(child, \"brief\") %}<br>{{child.brief}}{% endif %} |\n";
+    ss << " {% if existsIn(child, \"brief\") %}<br/>{{child.brief}}{% endif %} |\n";
     ss << "{% endfor %}\n{% endif -%}\n";
 
     return ss.str();
@@ -423,7 +423,7 @@ static std::string createTableForFriendLike(const std::string& title, const std:
     ss << "{% endfor %})";
     ss << "{% if child.const %} const{% endif -%}\n";
     ss << "{% endif %} ";
-    ss << "{% if existsIn(child, \"brief\") %}<br>{{child.brief}}";
+    ss << "{% if existsIn(child, \"brief\") %}<br/>{{child.brief}}";
     ss << "{% endif %} |\n";
 
     ss << "{% endfor %}\n{% endif -%}\n";
@@ -451,7 +451,7 @@ static std::string createTableForFunctionLike(const std::string& visibility,
     ss << "{{param.typePlain}} {{param.name}}";
     ss << "{% if existsIn(param, \"defvalPlain\") %} ={{param.defvalPlain}}{% endif -%}\n";
     ss << "{% if not loop.is_last %},{% endif -%}\n";
-    ss << "{% endfor %}\\> <br>{% endif -%}\n";
+    ss << "{% endfor %}\\> <br/>{% endif -%}\n";
 
     ss << "{% if child.virtual %}virtual {% endif -%}\n";
     ss << "{% if existsIn(child, \"type\") %}{{child.type}} {% endif -%}\n";
@@ -469,7 +469,7 @@ static std::string createTableForFunctionLike(const std::string& visibility,
     ss << "{% if child.deleted %} =delete{% endif -%}\n";
     ss << "{% if child.pureVirtual %} =0{% endif -%}\n";
 
-    ss << " {% if existsIn(child, \"brief\") %}<br>{{child.brief}}{% endif %} |\n";
+    ss << " {% if existsIn(child, \"brief\") %}<br/>{{child.brief}}{% endif %} |\n";
     ss << "{% endfor %}\n{% endif -%}\n";
 
     return ss.str();
@@ -496,7 +496,7 @@ static std::string createTableForDefineLike(const std::string& visibility,
     ss << "{% if existsIn(param, \"defval\") %} ={{param.defval}}{% endif %}";
     ss << "{% if not loop.is_last %}, {% endif %}";
     ss << "{% endfor %}){% endif %} ";
-    ss << "{% if existsIn(child, \"brief\") %}<br>{{child.brief}}{% endif %} |\n";
+    ss << "{% if existsIn(child, \"brief\") %}<br/>{{child.brief}}{% endif %} |\n";
 
     ss << "{% endfor %}\n{% endif -%}\n";
 
@@ -553,38 +553,38 @@ static std::string createMemberTable() {
 static std::string createNonMemberTable() {
     std::stringstream ss;
 
-    ss << R"({% if exists("groups") %}## Modules
+    ss << R"~~~({% if exists("groups") %}## Modules
 
 | Name           |
 | -------------- |
 {% for child in groups -%}
-| **[{{child.title}}]({{child.url}})** {% if existsIn(child, "brief") %}<br>{{child.brief}}{% endif %} |
+| **[{{child.title}}]({{child.url}})** {% if existsIn(child, "brief") %}<br/>{{child.brief}}{% endif %} |
 {%- endfor %}
-{% endif -%})";
+{% endif -%})~~~";
     ss << "\n\n";
 
-    ss << R"({% if exists("dirs") %}## Directories
+    ss << R"~~~({% if exists("dirs") %}## Directories
 
 | Name           |
 | -------------- |
 {% for child in dirs -%}
-| **[{{child.title}}]({{child.url}})** {% if existsIn(child, "brief") %}<br>{{child.brief}}{% endif %} |
+| **[{{child.title}}]({{child.url}})** {% if existsIn(child, "brief") %}<br/>{{child.brief}}{% endif %} |
 {%- endfor %}
-{% endif -%})";
+{% endif -%})~~~";
     ss << "\n\n";
 
-    ss << R"({% if exists("files") %}## Files
+    ss << R"~~~({% if exists("files") %}## Files
 
 | Name           |
 | -------------- |
 {% for child in files -%}
-| **[{{child.title}}]({{child.url}})** {% if existsIn(child, "brief") %}<br>{{child.brief}}{% endif %} |
+| **[{{child.title}}]({{child.url}})** {% if existsIn(child, "brief") %}<br/>{{child.brief}}{% endif %} |
 {%- endfor %}
-{% endif -%})";
+{% endif -%})~~~";
     ss << "\n\n";
 
     ss << createTableForNamespaceLike(
-        "public", R"({% if language == "java" %}Packages{% else %}Namespaces{% endif %})", "namespaces", false);
+        "public", R"~~~({% if language == "java" %}Packages{% else %}Namespaces{% endif %})~~~", "namespaces", false);
     ss << createTableForClassLike("public", "Classes", "publicClasses", false);
     ss << createTableForTypeLike("public", "Types", "publicTypes", false);
     ss << createTableForFunctionLike("public", "Slots", "publicSlots", false);
@@ -601,7 +601,7 @@ static const std::string TEMPLATE_CLASS_MEMBERS_TABLES = createMemberTable();
 static const std::string TEMPLATE_NONCLASS_MEMBERS_TABLES = createNonMemberTable();
 
 static const std::string TEMPLATE_MEMBER_DETAILS =
-    R"({% if kind in ["function", "slot", "signal", "event"] -%}
+    R"~~~({% if kind in ["function", "slot", "signal", "event"] -%}
 ```{{language}}
 {% if exists("templateParams") -%}
 template <{% for param in templateParams %}{{param.typePlain}} {{param.name}}{% if existsIn(param, "defvalPlain") %} ={{param.defvalPlain}}{% endif -%}
@@ -687,10 +687,10 @@ friend {% if exists("typePlain") %}{{typePlain}} {% endif -%}
 {% if exists("initializer") %}{{initializer}}{% endif %}
 ```{% endif %}
 
-{% include "details" -%})";
+{% include "details" -%})~~~";
 
 static const std::string TEMPLATE_NONCLASS_MEMBERS_DETAILS =
-    R"({% if exists("publicTypes") %}## Types Documentation
+    R"~~~({% if exists("publicTypes") %}## Types Documentation
 
 {% for child in publicTypes %}### {{child.kind}} {{child.name}}
 
@@ -713,10 +713,10 @@ static const std::string TEMPLATE_NONCLASS_MEMBERS_DETAILS =
 {% for child in defines %}### {{child.kind}} {{child.name}}
 
 {{ render("member_details", child) }}
-{% endfor %}{% endif %})";
+{% endfor %}{% endif %})~~~";
 
 static const std::string TEMPLATE_CLASS_MEMBERS_DETAILS =
-    R"({% if exists("publicTypes") %}## Public Types Documentation
+    R"~~~({% if exists("publicTypes") %}## Public Types Documentation
 
 {% for child in publicTypes %}### {{child.kind}} {{child.name}}
 
@@ -826,10 +826,10 @@ static const std::string TEMPLATE_CLASS_MEMBERS_DETAILS =
 {% for child in friends %}### {{child.kind}} {{child.name}}
 
 {{ render("member_details", child) }}
-{% endfor %}{% endif -%})";
+{% endfor %}{% endif -%})~~~";
 
 static const std::string TEMPLATE_KIND_NONCLASS =
-    R"({% include "header" -%}
+    R"~~~({% include "header" -%}
 
 {% include "breadcrumbs" -%}
 
@@ -843,10 +843,10 @@ static const std::string TEMPLATE_KIND_NONCLASS =
 
 {% include "nonclass_members_details" %}
 
-{% include "footer" %})";
+{% include "footer" %})~~~";
 
 static const std::string TEMPLATE_KIND_CLASS =
-    R"({% include "header" -%}
+    R"~~~({% include "header" -%}
 
 {% include "breadcrumbs" %}
 
@@ -884,10 +884,10 @@ template <{% for param in templateParams %}{{param.typePlain}} {{param.name}}{% 
 
 {% include "class_members_details" -%}
 
-{% include "footer" %})";
+{% include "footer" %})~~~";
 
 static const std::string TEMPLATE_KIND_GROUP =
-    R"({% include "header" -%}
+    R"~~~({% include "header" -%}
 
 {% include "breadcrumbs" -%}
 
@@ -902,10 +902,10 @@ static const std::string TEMPLATE_KIND_GROUP =
 {% include "nonclass_members_details" -%}
 
 {% include "footer" -%}
-)";
+)~~~";
 
 static const std::string TEMPLATE_KIND_FILE =
-    R"({% include "header" -%}
+    R"~~~({% include "header" -%}
 
 {% if exists("brief") %}{{brief}}{% endif %}{% if hasDetails %} [More...](#detailed-description){% endif %}
 
@@ -925,84 +925,84 @@ static const std::string TEMPLATE_KIND_FILE =
 {% endif %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_KIND_PAGE =
-    R"({% include "header" %}
+    R"~~~({% include "header" %}
 
 {% if exists("details") %}{{details}}{% endif %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_KIND_EXAMPLE =
-    R"({% include "header" %}
+    R"~~~({% include "header" %}
 
 {% if exists("details") %}{{details}}{% endif %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_INDEX =
-    R"(
-{% for child0 in children %}* **{{child0.kind}} [{{child0.title}}]({{child0.url}})** {% if existsIn(child0, "brief") %}<br>{{child0.brief}}{% endif %}{% if existsIn(child0, "children") %}{% for child1 in child0.children %}
-    * **{{child1.kind}} [{{last(stripNamespace(child1.title))}}]({{child1.url}})** {% if existsIn(child1, "brief") %}<br>{{child1.brief}}{% endif %}{% if existsIn(child1, "children") %}{% for child2 in child1.children %}
-        * **{{child2.kind}} [{{last(stripNamespace(child2.title))}}]({{child2.url}})** {% if existsIn(child2, "brief") %}<br>{{child2.brief}}{% endif %}{% if existsIn(child2, "children") %}{% for child3 in child2.children %}
-            * **{{child3.kind}} [{{last(stripNamespace(child3.title))}}]({{child3.url}})** {% if existsIn(child3, "brief") %}<br>{{child3.brief}}{% endif %}{% if existsIn(child3, "children") %}{% for child4 in child3.children %}
-                * **{{child4.kind}} [{{last(stripNamespace(child4.title))}}]({{child4.url}})** {% if existsIn(child4, "brief") %}<br>{{child4.brief}}{% endif %}{% if existsIn(child4, "children") %}{% for child5 in child4.children %}
-                    * **{{child5.kind}} [{{last(stripNamespace(child5.title))}}]({{child5.url}})** {% if existsIn(child5, "brief") %}<br>{{child5.brief}}{% endif %}{% if existsIn(child5, "children") %}{% for child6 in child5.children %}
-                        * **{{child6.kind}} [{{last(stripNamespace(child6.title))}}]({{child6.url}})** {% if existsIn(child6, "brief") %}<br>{{child6.brief}}{% endif %}{% if existsIn(child6, "children") %}{% for child7 in child6.children %}
-                            * **{{child7.kind}} [{{last(stripNamespace(child7.title))}}]({{child7.url}})** {% if existsIn(child7, "brief") %}<br>{{child7.brief}}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}
+    R"~~~(
+{% for child0 in children %}* **{{child0.kind}} [{{child0.title}}]({{child0.url}})** {% if existsIn(child0, "brief") %}<br/>{{child0.brief}}{% endif %}{% if existsIn(child0, "children") %}{% for child1 in child0.children %}
+    * **{{child1.kind}} [{{last(stripNamespace(child1.title))}}]({{child1.url}})** {% if existsIn(child1, "brief") %}<br/>{{child1.brief}}{% endif %}{% if existsIn(child1, "children") %}{% for child2 in child1.children %}
+        * **{{child2.kind}} [{{last(stripNamespace(child2.title))}}]({{child2.url}})** {% if existsIn(child2, "brief") %}<br/>{{child2.brief}}{% endif %}{% if existsIn(child2, "children") %}{% for child3 in child2.children %}
+            * **{{child3.kind}} [{{last(stripNamespace(child3.title))}}]({{child3.url}})** {% if existsIn(child3, "brief") %}<br/>{{child3.brief}}{% endif %}{% if existsIn(child3, "children") %}{% for child4 in child3.children %}
+                * **{{child4.kind}} [{{last(stripNamespace(child4.title))}}]({{child4.url}})** {% if existsIn(child4, "brief") %}<br/>{{child4.brief}}{% endif %}{% if existsIn(child4, "children") %}{% for child5 in child4.children %}
+                    * **{{child5.kind}} [{{last(stripNamespace(child5.title))}}]({{child5.url}})** {% if existsIn(child5, "brief") %}<br/>{{child5.brief}}{% endif %}{% if existsIn(child5, "children") %}{% for child6 in child5.children %}
+                        * **{{child6.kind}} [{{last(stripNamespace(child6.title))}}]({{child6.url}})** {% if existsIn(child6, "brief") %}<br/>{{child6.brief}}{% endif %}{% if existsIn(child6, "children") %}{% for child7 in child6.children %}
+                            * **{{child7.kind}} [{{last(stripNamespace(child7.title))}}]({{child7.url}})** {% if existsIn(child7, "brief") %}<br/>{{child7.brief}}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endif %}
 {% endfor %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_INDEX_CLASSES =
-    R"({% include "header" %}
+    R"~~~({% include "header" %}
 
 {% include "index" %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_INDEX_NAMESPACES =
-    R"({% include "header" %}
+    R"~~~({% include "header" %}
 
 {% include "index" %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_INDEX_GROUPS =
-    R"({% include "header" %}
+    R"~~~({% include "header" %}
 
 {% include "index" %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_INDEX_FILES =
-    R"({% include "header" %}
+    R"~~~({% include "header" %}
 
 {% include "index" %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_INDEX_PAGES =
-    R"({% include "header" %}
+    R"~~~({% include "header" %}
 
 {% include "index" %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 static const std::string TEMPLATE_INDEX_EXAMPLES =
-    R"({% include "header" %}
+    R"~~~({% include "header" %}
 
 {% include "index" %}
 
 {% include "footer" %}
-)";
+)~~~";
 
 // clang-format off
 std::unordered_map<std::string, Doxybook2::DefaultTemplate> Doxybook2::defaultTemplates = {
