@@ -7,7 +7,7 @@ file(GLOB_RECURSE HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp)
 
 # Get the version string based on the git tags
 execute_process(
-  COMMAND git describe --always --tags --abbrev=8 --first-parent --match=v*
+  COMMAND git describe --always --tags --abbrev=8 --match=v*
   OUTPUT_VARIABLE VERSION
   ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE
 )
