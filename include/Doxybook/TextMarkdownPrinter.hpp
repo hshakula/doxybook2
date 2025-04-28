@@ -3,14 +3,14 @@
 #include <sstream>
 namespace Doxybook2 {
     class TextMarkdownPrinter : public TextPrinter {
-      public:
+    public:
         explicit TextMarkdownPrinter(const Config& config, std::string inputDir, const Doxygen& doxygen)
             : TextPrinter(config, doxygen), inputDir(std::move(inputDir)) {
         }
 
         std::string print(const XmlTextParser::Node& node, const std::string& language) const override;
 
-      private:
+    private:
         struct ListData {
             int counter{0};
             bool ordered{false};
@@ -24,6 +24,7 @@ namespace Doxybook2 {
             bool eol{false};
             bool tableHeader{false};
             bool inComputerOutput{false};
+            bool invertComputerOutput{false};
             bool validLink{false};
         };
 

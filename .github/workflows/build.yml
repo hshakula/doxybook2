@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '**'
+      - 'develop'
+      - 'main'
     tags:
-      - '**'
+      - 'v*'
   pull_request:
     branches:
       - 'develop'
-      - 'master'
+      - 'main'
 
 jobs:
   build:
@@ -110,7 +111,7 @@ jobs:
         env:
           VCPKG_ROOT: ${{ env.VCPKG_ROOT }}
         run: |
-          APP_VERSION=$(git describe --always --tags --abbrev=8 --first-parent --match=v*)
+          APP_VERSION=$(git describe --always --tags --abbrev=8 --match=v*)
           echo "APP_VERSION=${APP_VERSION}" >> ${GITHUB_ENV}
           echo "App version: ${APP_VERSION}"
           mkdir build
@@ -402,7 +403,7 @@ jobs:
           stat ${{ github.workspace }}/public
 
       - name: Deploy
-        if: startsWith(github.ref, 'refs/heads/master')
+        if: startsWith(github.ref, 'refs/heads/main')
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

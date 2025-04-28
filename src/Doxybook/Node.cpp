@@ -254,7 +254,7 @@ void Doxybook2::Node::parseInheritanceInfo(const Xml::Element& element) {
 void Doxybook2::Node::makeUrl(const Config& config) {
     static const auto anchorMaker = [](const Config& config, const Node& node) {
         if (!node.isStructured() && node.kind != Kind::MODULE) {
-            return "#" + Utils::toLower(toStr(node.kind)) + "-" +
+            return "#" + Utils::toLower(Utils::safeAnchorId(toStr(node.kind), false)) + "-" +
                    Utils::safeAnchorId(node.name, config.replaceUnderscoresInAnchors);
         } else {
             return std::string("");

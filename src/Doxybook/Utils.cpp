@@ -7,12 +7,14 @@
 
 #include "ExceptionUtils.hpp"
 #include <Doxybook/Utils.hpp>
+#include <cctype>
 #include <chrono>
 #include <dirent.h>
 #include <locale>
 #include <regex>
 #include <sstream>
 #include <unordered_map>
+
 
 static std::string replaceAll(std::string str, const std::string& from, const std::string& to) {
     size_t pos = 0;
@@ -50,13 +52,13 @@ std::string Doxybook2::Utils::replaceNewline(std::string str) {
 
 std::string Doxybook2::Utils::title(std::string str) {
     if (!str.empty())
-        str[0] = ::toupper(str[0]);
+        str[0] = std::toupper(str[0]);
     return str;
 }
 
 extern std::string Doxybook2::Utils::toLower(std::string str) {
     for (auto& c : str) {
-        c = ::tolower(c);
+        c = std::tolower(c);
     }
     return str;
 }
