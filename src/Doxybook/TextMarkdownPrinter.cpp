@@ -135,6 +135,9 @@ void Doxybook2::TextMarkdownPrinter::print(PrintData& data,
                 }
             } else {
                 data.ss << "[";
+                if (data.invertComputerOutput) {
+                    data.ss << "`";
+                }
             }
             data.eol = false;
             break;
@@ -162,6 +165,18 @@ void Doxybook2::TextMarkdownPrinter::print(PrintData& data,
             if (config.linkAndInlineCodeAsHTML) {
                 data.ss << "<code>";
             } else {
+                // This is a hack-tweak: if child node is a single REF, skip creating a code block,
+                // but create it instead when the REF node is processed INSIDE the link,
+                // it will effectively invert their parent-child relationship.
+                //
+                // This approach will invert strange behaviour of Doxygen, which creates a code block outside but places
+                // REF inside it, effectively breaking the link when normal markup is used.
+                if (!data.invertComputerOutput && node->children.size() == 1 &&
+                    node->children[0].type == XmlTextParser::Node::Type::REF) {
+                    data.invertComputerOutput = true;
+                    break;
+                }
+
                 data.ss << "`";
             }
             data.inComputerOutput = true;
@@ -351,6 +366,9 @@ void Doxybook2::TextMarkdownPrinter::print(PrintData& data,
                     data.ss << "</a>";
                 }
             } else {
+                if (data.invertComputerOutput) {
+                    data.ss << "`";
+                }
                 data.ss << "]";
                 const auto found = doxygen.getCache().find(node->extra);
                 if (found != doxygen.getCache().end()) {
@@ -391,7 +409,11 @@ void Doxybook2::TextMarkdownPrinter::print(PrintData& data,
             if (config.linkAndInlineCodeAsHTML) {
                 data.ss << "</code>";
             } else {
-                data.ss << "`";
+                // There is a special case when the computer output is inside a link,
+                // see the code that sets the `inComputerOutput` flag above.
+                if (data.invertComputerOutput) {
+                    data.invertComputerOutput = false;
+                }
             }
             data.inComputerOutput = false;
             data.eol = false;
