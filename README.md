@@ -469,88 +469,90 @@ The following is a list of config properties, their default value, and descripti
 
 | JSON Key                      | Default Value                                                        | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ----------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `copyImages`                  | `true`                                                               | Automatically copy images added into Doxygen documentation via `@image`. These images will be copied into folder defined by `imagesFolder`                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `sort`                        | `false`                                                              | Sort everything alphabetically. If set to false, the order will stay the same as the order in the Doxygen XML files.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `imagesFolder`                | `"images"`                                                           | Name of the folder where to copy images. This folder will be automatically created in the output path defined by `--output`. Leave this empty string if you want all of the images to be stored in the root directory (the output directory).                                                                                                                                                                                                                                                                                                               |
-| `linkLowercase`               | `false`                                                              | Convert all Markdown links (only links to other markdown files, the C++ related stuff) into lowercase format. Hugo need this to set to `true`.                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `linkAndInlineCodeAsHTML`     | `false`                                                              | Output links as HTML <a> tags and inline code as `<code>` tags instead of Markdown. If your generated Markdown has links inside of inline code, set this to `true` to correctly render the links.                                                                                                                                                                                                                                                                                                                                                           |
-| `indexInFolders`              | `false`                                                              | Part of the generated markdown output are extra index files. These are more of a list of classes, namespaces, modules, etc. By default these are stored in the root directory (the output directory). Set to true if you want them to be generated in their respective folders (i.e. class index in Classes folder, etc.)                                                                                                                                                                                                                                   |
-| `mainPageInRoot`              | `false`                                                              | If a `mainpage` is defined by Doxygen, then this file will be generated in `Pages/mainpage.md` path. If you want to make it into `index.md` as the root of your website, then set this to true with `mainPageName` set to `"index"`.                                                                                                                                                                                                                                                                                                                        |
-| `mainPageName`                | `"indexpage"`                                                        | If a `mainpage` is defined by Doxygen, then this file will be saved as `indexpage`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `baseUrl`                     | `""`                                                                 | A prefix to put in front of all Markdown links (only links to other markdown files). See `linkLowercase` and `linkSuffix` as well. Note hat MkDocs and Hugo will need explicit baseUrl while GitBook uses no base URL. VuePress needs this set to `/`.                                                                                                                                                                                                                                                                                                      |
-| `linkSuffix`                  | `".md"`                                                              | The suffix to put after all of the Markdown links (only links to other markdown files). If using GitBook, leave this to `".md"`, but MkDocs and Hugo needs `"/"` instead.                                                                                                                                                                                                                                                                                                                                                                                   |
+| `copyImages`                  | `true`                                                               | Automatically copy images added into Doxygen documentation via `@image`. These images will be copied into folder defined by `imagesFolder`                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `fileExt`                     | `"md"`                                                               | The file extension to use when generating markdown files.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `filesFilter`                 | `[]`                                                                 | This will filter which files are allowed to be in the output. For example, an array of `[".hpp", ".h"]` will allow only the files that have file extensions `.hpp` or `.h`. When this is empty (by default) then all files are allowed in the output. This also affects `--json` type of output. This does not filter which classes/functions/etc should be extracted from the source files! (For that, use Doxygen's [FILE_PATTERNS](https://www.doxygen.nl/manual/config.html#cfg_file_patterns)) This only affects listing of those files in the output! |
-| `foldersToGenerate`           | `["modules", "classes", "files", "pages", "namespaces", "examples"]` | List of folders to create. You can use this to skip generation of some folders, for example you don't want `examples` then remove it from the array. Note, this does not change the name of the folders that will be generated, this only enables them. This is an enum and must be lower-case. If you do not set this value in your JSON config file then all the folders are created. An empty array will not generate anything at all.'                                                                                                                  |
+| `foldersToGenerate`           | `["classes", "examples", "files", "modules", "namespaces", "pages"]` | List of folders to create. You can use this to skip generation of some folders, for example you don't want `examples` then remove it from the array. Note, this does not change the name of the folders that will be generated, this only enables them. This is an enum and must be lower-case. If you do not set this value in your JSON config file then all the folders are created. An empty array will not generate anything at all.'                                                                                                                  |
+| `imagesFolder`                | `"images"`                                                           | Name of the folder where to copy images. This folder will be automatically created in the output path defined by `--output`. Leave this empty string if you want all of the images to be stored in the root directory (the output directory).                                                                                                                                                                                                                                                                                                               |
+| `indexInFolders`              | `false`                                                              | Part of the generated markdown output are extra index files. These are more of a list of classes, namespaces, modules, etc. By default these are stored in the root directory (the output directory). Set to true if you want them to be generated in their respective folders (i.e. class index in Classes folder, etc.)                                                                                                                                                                                                                                   |
+| `linkAndInlineCodeAsHTML`     | `false`                                                              | Output links as HTML `<a>` tags and inline code as `<code>` tags instead of Markdown. If your generated Markdown has links inside of inline code, set this to `true` to correctly render the links.                                                                                                                                                                                                                                                                                                                                                         |
+| `linkLowercase`               | `false`                                                              | Convert all Markdown links (only links to other markdown files, the C++ related stuff) into lowercase format. Hugo need this to set to `true`.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `linkSuffix`                  | `".md"`                                                              | The suffix to put after all of the Markdown links (only links to other markdown files). If using GitBook, leave this to `".md"`, but MkDocs and Hugo needs `"/"` instead.                                                                                                                                                                                                                                                                                                                                                                                   |
+| `mainPageInRoot`              | `false`                                                              | If a `mainpage` is defined by Doxygen, then this file will be generated in `Pages/mainpage.md` path. If you want to make it into `index.md` as the root of your website, then set this to true with `mainPageName` set to `"index"`.                                                                                                                                                                                                                                                                                                                        |
+| `mainPageName`                | `"indexpage"`                                                        | If a `mainpage` is defined by Doxygen, then this file will be saved as `indexpage`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `replaceUnderscoresInAnchors` | `true`                                                               | Replace `_` with `-` in anchors.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `sort`                        | `false`                                                              | Sort everything alphabetically. If set to false, the order will stay the same as the order in the Doxygen XML files.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `useFolders`                  | `true`                                                               | Put all stuff into categorized folders if set to `true`, or everything into destination folder (`false`).                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 The following are a list of config properties that specify the names of the folders. Each folder holds specific group of C++ stuff. Note that the `Classes` folder also holds interfaces, structs, and unions.
 
 | JSON Key                 | Default Value  |
 | ------------------------ | -------------- |
-| `folderGroupsName`       | `"Modules"`    |
 | `folderClassesName`      | `"Classes"`    |
-| `folderFilesName`        | `"Files"`      |
-| `folderRelatedPagesName` | `"Pages"`      |
-| `folderNamespacesName`   | `"Namespaces"` |
 | `folderExamplesName`     | `"Examples"`   |
+| `folderFilesName`        | `"Files"`      |
+| `folderGroupsName`       | `"Modules"`    |
+| `folderNamespacesName`   | `"Namespaces"` |
+| `folderRelatedPagesName` | `"Pages"`      |
 
 The following is a list of config properties that specify the filenames of the indexes. For example, an index/list of all classes will use `index_classes` filename followed by `fileExt` extension name.
 
 | JSON Key                | Default Value        |
 | ----------------------- | -------------------- |
-| `indexGroupsName`       | `"index_groups"`     |
 | `indexClassesName`      | `"index_classes"`    |
-| `indexFilesName`        | `"index_files"`      |
-| `indexRelatedPagesName` | `"index_pages"`      |
-| `indexNamespacesName`   | `"index_namespaces"` |
 | `indexExamplesName`     | `"index_examples"`   |
+| `indexFilesName`        | `"index_files"`      |
+| `indexGroupsName`       | `"index_groups"`     |
+| `indexNamespacesName`   | `"index_namespaces"` |
+| `indexRelatedPagesName` | `"index_pages"`      |
 
 The following are config properties that specify what template to use for each specific C++ kind. A kind is just a type of the C++ thing (class, namespace, etc.). This also includes properties for files, directories, pages, and modules (alias groups). These templates can be overwritten via `--templates /path/to/templates-folder`.
 
 | JSON Key                | Default Value     |
 | ----------------------- | ----------------- |
 | `templateKindClass`     | `"kind_class"`    |
+| `templateKindDir`       | `"kind_file"`     |
+| `templateKindExample`   | `"kind_example"`  |
+| `templateKindFile`      | `"kind_file"`     |
+| `templateKindGroup`     | `"kind_nonclass"` |
+| `templateKindInterface` | `"kind_class"`    |
+| `templateKindJavaEnum`  | `"kind_class"`    |
+| `templateKindNamespace` | `"kind_nonclass"` |
+| `templateKindPage`      | `"kind_page"`     |
 | `templateKindStruct`    | `"kind_class"`    |
 | `templateKindUnion`     | `"kind_class"`    |
-| `templateKindInterface` | `"kind_class"`    |
-| `templateKindNamespace` | `"kind_nonclass"` |
-| `templateKindGroup`     | `"kind_nonclass"` |
-| `templateKindFile`      | `"kind_file"`     |
-| `templateKindDir`       | `"kind_file"`     |
-| `templateKindPage`      | `"kind_page"`     |
-| `templateKindExample`   | `"kind_example"`  |
 
 Same as above, but these are related to the index/list files.
 
 | JSON Key                    | Default Value        |
 | --------------------------- | -------------------- |
 | `templateIndexClasses`      | `"index_classes"`    |
-| `templateIndexNamespaces`   | `"index_namespaces"` |
-| `templateIndexGroups`       | `"index_groups"`     |
-| `templateIndexFiles`        | `"index_files"`      |
-| `templateIndexRelatedPages` | `"index_pages"`      |
 | `templateIndexExamples`     | `"index_examples"`   |
+| `templateIndexFiles`        | `"index_files"`      |
+| `templateIndexGroups`       | `"index_groups"`     |
+| `templateIndexNamespaces`   | `"index_namespaces"` |
+| `templateIndexRelatedPages` | `"index_pages"`      |
 
 These properties define the title to use in the templates specified above.
 
 | JSON Key                 | Default Value  |
 | ------------------------ | -------------- |
-| `indexClassesTitle`      | `"Classes"`    |
-| `indexNamespacesTitle`   | `"Namespaces"` |
-| `indexGroupsTitle`       | `"Modules"`    |
-| `indexFilesTitle`        | `"Files"`      |
-| `indexRelatedPagesTitle` | `"Pages"`      |
 | `indexExamplesTitle`     | `"Examples"`   |
+| `indexFilesTitle`        | `"Files"`      |
+| `indexGroupsTitle`       | `"Modules"`    |
+| `indexNamespacesTitle`   | `"Namespaces"` |
+| `indexRelatedPagesTitle` | `"Pages"`      |
+| `indexClassesTitle`      | `"Classes"`    |
 
 These properties modify how Latex formulas should be generated.
 
 | JSON Key             | Default Value | Description                                                |
 | -------------------- | ------------- | ---------------------------------------------------------- |
-| `formulaInlineStart` | `"\\("`       | The string to prepend the inline formula with in Markdown. |
-| `formulaInlineEnd`   | `"\\)"`       | The string to append the inline formula with in Markdown.  |
 | `formulaBlockStart`  | `"\\["`       | The string to prepend the block formula with in Markdown.  |
 | `formulaBlockEnd`    | `"\\]"`       | The string to append the block formula with in Markdown.   |
+| `formulaInlineStart` | `"\\("`       | The string to prepend the inline formula with in Markdown. |
+| `formulaInlineEnd`   | `"\\)"`       | The string to append the inline formula with in Markdown.  |
 
 ## Latex formulas
 
