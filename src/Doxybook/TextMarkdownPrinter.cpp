@@ -413,6 +413,8 @@ void Doxybook2::TextMarkdownPrinter::print(PrintData& data,
                 // see the code that sets the `inComputerOutput` flag above.
                 if (data.invertComputerOutput) {
                     data.invertComputerOutput = false;
+                } else {
+                    data.ss << "`";
                 }
             }
             data.inComputerOutput = false;
