@@ -18,6 +18,14 @@ public:
     XmlTextParser::Node brief;
 };
 
+static std::string getTextSafe(Doxybook2::Xml::Element const& element) {
+    if (element.hasText()) {
+        return element.getText();
+    } else {
+        return {};
+    }
+}
+
 static Doxybook2::NodePtr findInCache(Doxybook2::NodeCacheMap& cache, const std::string& refid) {
     const auto found = cache.find(refid);
     if (found != cache.end()) {
@@ -62,7 +70,7 @@ Doxybook2::Node::parse(NodeCacheMap& cache, const std::string& inputDir, const N
     auto compounddef = assertChild(root, "compounddef");
 
     ptr->xmlPath = refidPath;
-    ptr->name = assertChild(compounddef, "compoundname").getText();
+    ptr->name = getTextSafe(assertChild(compounddef, "compoundname"));
     ptr->language = Utils::normalizeLanguage(compounddef.getAttr("language", ""));
     auto kind = toEnumKind(compounddef.getAttr("kind"));
     ptr->kind = (ptr->language == "java" && kind == Kind::ENUM) ? Kind::JAVAENUM : kind;
@@ -80,7 +88,7 @@ Doxybook2::Node::parse(NodeCacheMap& cache, const std::string& inputDir, const N
             const auto child = found ? found : Node::parse(memberdef, childRefid);
             const auto definition = memberdef.firstChildElement("definition");
             if (definition) {
-                const auto defStr = definition.getText();
+                const auto defStr = getTextSafe(definition);
                 if (defStr.find("using ") == 0) {
                     child->kind = Kind::USING;
                 }
@@ -158,11 +166,11 @@ Doxybook2::NodePtr Doxybook2::Node::parse(Xml::Element& memberdef, const std::st
     assert(!refid.empty());
 
     auto ptr = std::make_shared<Node>(refid);
-    ptr->name = assertChild(memberdef, "name").getText();
+    ptr->name = getTextSafe(assertChild(memberdef, "name"));
 
     auto childQualifiedName = memberdef.firstChildElement("qualifiedname");
     if (childQualifiedName) {
-        ptr->qualifiedName = childQualifiedName.getText();
+        ptr->qualifiedName = getTextSafe(childQualifiedName);
     } else {
         ptr->qualifiedName = ptr->name;
     }
@@ -175,7 +183,7 @@ Doxybook2::NodePtr Doxybook2::Node::parse(Xml::Element& memberdef, const std::st
         auto enumvalue = memberdef.firstChildElement("enumvalue");
         while (enumvalue) {
             auto value = std::make_shared<Node>(enumvalue.getAttr("id"));
-            value->name = enumvalue.firstChildElement("name").getText();
+            value->name = getTextSafe(enumvalue.firstChildElement("name"));
             value->kind = Kind::ENUMVALUE;
             value->empty = false;
             value->parent = ptr.get();
@@ -223,7 +231,7 @@ void Doxybook2::Node::parseBaseInfo(const Xml::Element& element) {
 
     const auto title = element.firstChildElement("title");
     if (title) {
-        this->title = title.getText();
+        this->title = getTextSafe(title);
     } else {
         this->title = this->name;
     }
@@ -235,7 +243,7 @@ void Doxybook2::Node::parseInheritanceInfo(const Xml::Element& element) {
     element.allChildElements("basecompoundref", [&](Xml::Element& e) {
         ClassReference base;
         base.refid = e.getAttr("refid", "");
-        base.name = e.getText();
+        base.name = getTextSafe(e);
         base.virt = toEnumVirtual(e.getAttr("virt"));
         base.prot = toEnumVisibility(e.getAttr("prot"));
         baseClasses.push_back(base);
@@ -244,7 +252,7 @@ void Doxybook2::Node::parseInheritanceInfo(const Xml::Element& element) {
     element.allChildElements("derivedcompoundref", [&](Xml::Element& e) {
         ClassReference derived;
         derived.refid = e.getAttr("refid", "");
-        derived.name = e.getText();
+        derived.name = getTextSafe(e);
         derived.virt = toEnumVirtual(e.getAttr("virt"));
         derived.prot = toEnumVisibility(e.getAttr("prot"));
         derivedClasses.push_back(derived);
@@ -448,10 +456,10 @@ Doxybook2::Node::Data Doxybook2::Node::loadData(const Config& /*config*/,
 
     auto argsString = element.firstChildElement("argsstring");
     if (argsString && argsString.hasText())
-        data.argsString = argsString.getText();
+        data.argsString = getTextSafe(argsString);
     auto definition = element.firstChildElement("definition");
     if (definition && definition.hasText())
-        data.definition = definition.getText();
+        data.definition = getTextSafe(definition);
     auto initializer = element.firstChildElement("initializer");
     if (initializer) {
         data.initializer = plainPrinter.print(XmlTextParser::parsePara(initializer));
@@ -571,9 +579,9 @@ Doxybook2::Node::Data Doxybook2::Node::loadData(const Config& /*config*/,
 
     if (const auto includes = element.firstChildElement("includes")) {
         if (includes.getAttr("local", "no") == "no")
-            data.includes = "<" + includes.getText() + ">";
+            data.includes = "<" + getTextSafe(includes) + ">";
         else
-            data.includes = "\"" + includes.getText() + "\"";
+            data.includes = "\"" + getTextSafe(includes) + "\"";
     }
 
     if (const auto templateparamlist = element.firstChildElement("templateparamlist")) {
@@ -587,7 +595,7 @@ Doxybook2::Node::Data Doxybook2::Node::loadData(const Config& /*config*/,
             const auto defval = param.firstChildElement("defval");
             Param templateParam;
             if (declname) {
-                templateParam.name = declname.getText();
+                templateParam.name = getTextSafe(declname);
             }
             templateParam.type = markdownPrinter.print(XmlTextParser::parsePara(type));
             templateParam.typePlain = plainPrinter.print(XmlTextParser::parsePara(type));
@@ -636,7 +644,7 @@ Doxybook2::Node::Data Doxybook2::Node::loadData(const Config& /*config*/,
             p.name = markdownPrinter.print(XmlTextParser::parsePara(defname));
         }
         if (arr) {
-            p.name += arr.getText();
+            p.name += getTextSafe(arr);
         }
         if (defval) {
             const auto defvalParas = XmlTextParser::parsePara(defval);
